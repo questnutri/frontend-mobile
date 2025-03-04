@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import { Platform, TouchableOpacity, Text, StyleSheet } from 'react-native';
+
 export interface QN_ButtonProps {
     colorStyle?: 'blue' | 'white' | 'red';
     width?: number;
