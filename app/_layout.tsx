@@ -10,6 +10,8 @@ import { View } from 'react-native';
 import QN_Input from '@/components/QN_Components/QN_Input';
 import QN_TextArea from '@/components/QN_Components/QN_TextArea';
 import QN_Tabs from '@/components/QN_Components/QN_Tabs';
+import QN_TimeInput from '@/components/QN_Components/QN_TimeInput';
+
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -24,6 +26,7 @@ export default function RootLayout() {
   const [textAreaValue, setTextAreaValue] = useState('');
 
   const [selectedTab, setSelectedTab] = useState('Opção 1')
+  const [time, setTime] = useState('12:00')
 
   useEffect(() => {
     if (loaded) {
@@ -59,7 +62,12 @@ export default function RootLayout() {
           value={selectedTab}
           setValue={setSelectedTab}
         />
-
+        <QN_TimeInput
+          label="Selecione o horário"
+          value={time}
+          onChange={setTime}
+          color="#55b7fe"
+      />
       </View>
     </ThemeProvider>
   );
