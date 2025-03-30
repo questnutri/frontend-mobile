@@ -9,6 +9,7 @@ import { useColorScheme } from '@/hooks/useColorScheme';
 import { View } from 'react-native';
 import QN_Input from '@/components/QN_Components/QN_Input';
 import QN_TextArea from '@/components/QN_Components/QN_TextArea';
+import QN_Tabs from '@/components/QN_Components/QN_Tabs';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -21,6 +22,8 @@ export default function RootLayout() {
 
   const [inputValue, setInputValue] = useState('');
   const [textAreaValue, setTextAreaValue] = useState('');
+
+  const [selectedTab, setSelectedTab] = useState('Opção 1')
 
   useEffect(() => {
     if (loaded) {
@@ -51,6 +54,12 @@ export default function RootLayout() {
           placeholder="Digite algo..."
           label="Comentário"
         />
+        <QN_Tabs
+          tabs={['Opção 1', 'Opção 2', 'Opção 3','Opção 4','Opção 5','Opção 6']}
+          value={selectedTab}
+          setValue={setSelectedTab}
+        />
+
       </View>
     </ThemeProvider>
   );
