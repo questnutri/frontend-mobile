@@ -1,11 +1,41 @@
 import { useEffect, useState } from "react";
 import { Image, ImageBackground, View, StyleSheet } from "react-native";
 import Form_Login from "../forms/login";
-import Form_Register from "../forms/register";
-import { Video } from "expo-av";
-export default function Login() {
+import QN_Tabs from "@/src/components/QN_Components/QN_Tabs";
+import ResetPassword from "../forms/resetPassword";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import ChangePassword from "../forms/changePassword";
+import QN_Snackbar from "@/src/components/QN_Components/QN_Snackbar";
+
+export default function SignIn() {
   const [tabSelected, setTabSelected] = useState("Paciente");
-  const [register, setRegister] = useState(false);
+  const [form, setForm] = useState("login");
+  const [tokenChangePassword, setTokenChangePassword] = useState("");
+  const [alertPopup, setAlertPopup] = useState({
+    status: "sucess",
+    message: String,
+  });
+
+  const renderForm = () => {
+    if (form === "login") return <Form_Login setForm={setForm} />;
+    if (form === "resetPassword")
+      return (
+        <ResetPassword
+          setTokenChangePassword={setTokenChangePassword}
+          setForm={setForm}
+        />
+      );
+    if (form === "changePassword")
+      return (
+        <ChangePassword
+          tokenChangePassword={tokenChangePassword}
+          setForm={setForm}
+        />
+      );
+    return null;
+  };
+
+  useEffect(() => {}, [form]);
 
   return (
     <ImageBackground
@@ -13,12 +43,6 @@ export default function Login() {
       style={style.background}
       imageStyle={{ borderRadius: 20 }}
     >
-      {/* <Video
-        source={require("../../../assets/videos/logoReveal_whiteBg.mp4")} // seu vídeo
-        shouldPlay
-        isLooping
-        style={style.video}
-      /> */}
       <View style={style.container}>
         <View style={style.logoContainer}>
           <Image
@@ -27,17 +51,31 @@ export default function Login() {
           />
         </View>
         <View style={style.formContainer}>
-          {!register ? (
-            <Form_Login
-              tabSelected={tabSelected}
-              setTabSelected={setTabSelected}
-              register={register}
-              setRegister={setRegister}
-            />
-          ) : (
-            <Form_Register register={register} setRegister={setRegister} />
+          {form != "login" && (
+            <View style={style.divGoBack}>
+              <Ionicons
+                name="chevron-back"
+                size={22}
+                color="white"
+                onPress={() => setForm("login")}
+              />
+            </View>
           )}
+          {form == "login" && (
+            <QN_Tabs
+              tabs={["Paciente"]}
+              value={tabSelected}
+              setValue={(e) => setTabSelected(e.toString())}
+            />
+          )}
+          {renderForm()}
         </View>
+        {/* <QN_Snackbar
+          status={alertPopup.status}
+          message="Senha alterada com sucesso!"
+          show={false}
+          setShow={() => null}
+        /> */}
       </View>
     </ImageBackground>
   );
@@ -93,11 +131,29 @@ const style = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "space-between",
     alignItems: "center",
-    gap: 20,
+    gap: 0,
     height: "65%",
     paddingTop: 20,
     width: "100%",
     backgroundColor: "rgba(245, 245, 245, 0.5)",
     borderRadius: 20,
+  },
+  divGoBack: {
+    display: "flex",
+    flexDirection: "row",
+    marginLeft: "5%",
+    alignItems: "center",
+    width: "auto",
+    borderWidth: 1,
+    borderColor: "white",
+    alignSelf: "flex-start",
+    borderRadius: 6,
+    padding: 2,
+    paddingRight: 5,
+    backgroundColor: "#55b7fe",
+  },
+  goBackText: {
+    color: "white",
+    fontSize: 16,
   },
 });

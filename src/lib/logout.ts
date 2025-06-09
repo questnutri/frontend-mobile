@@ -1,23 +1,22 @@
+import axios from "./axiosInstance";
 export interface ILogoutResponse {
     status?: number
     error?: string
 }
 
-export const logout = async (path: string): Promise<ILogoutResponse> => {
-    const API_URL = 'http://192.168.1.28:3030/api/v1'; // Defina manualmente ou crie config de ambiente depois
+export const logout = async (): Promise<ILogoutResponse> => {
+    try {
+        const response = await axios.post('/auth/logout');
+        console.log(response.status)
 
-    const response = await fetch(`${API_URL}/auth/${path}/logout`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({}),
-    });
-
-    const responseData = await response.json();
-
-    return {
-        status: response.status,
-        ...responseData,
-    };
+        return {
+            status: response.status,
+            ...response.data,
+        };
+    } catch (error: any) {
+        return {
+            status: error.response?.status || 500,
+            error: error.response?.data?.error || 'Erro inesperado ao fazer logout',
+        };
+    }
 };

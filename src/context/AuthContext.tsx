@@ -29,13 +29,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           //refresh token > Backend
           //if(res == 200)
           // setAuthenticated(true);
-          // router.replace("../(drawer)/home");
+
           //else (403 ou 401) {
           doLogout();
           //}
         } else {
           setAuthenticated(true);
-          router.replace(`../(drawer)/(${getRole()})/home`);
+          router.replace(`../(drawer)/diets`);
         }
       }
     }

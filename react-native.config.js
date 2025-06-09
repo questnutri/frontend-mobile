@@ -1,3 +1,3 @@
-// module.exports = {
-//     assets: ['./assets/fonts'], // Define o diretório de fontes
-// };
+module.exports = {
+  assets: ["./assets/fonts"], // Define o diretório de fontes
+};

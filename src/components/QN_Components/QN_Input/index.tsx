@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import { TextInput } from "react-native-paper";
+import { red100 } from "react-native-paper/lib/typescript/styles/themes/v2/colors";
 
 interface QN_InputProps {
   value: string;
@@ -33,7 +34,7 @@ export default function QN_Input({
   isInvalid = false,
   type = "text",
   border = "flat",
-  width = 350,
+  width = 320,
   height = 50,
   backgroundColor = "#FFF",
   fontSize = 16,
@@ -73,10 +74,12 @@ export default function QN_Input({
     <View
       style={{
         width: width,
-        height: isInvalid ? height + 10 : height,
+        // height: isInvalid ? height + 10 : height,
         display: "flex",
         justifyContent: "center",
         gap: 10,
+        // borderWidth: 1,
+        borderRadius: 10,
       }}
     >
       <TextInput
@@ -86,17 +89,25 @@ export default function QN_Input({
         onChangeText={onChange}
         textColor={"black"}
         placeholder={placeholder}
-        underlineColor="transparent"
         selectionColor="#181818"
-        style={{
+        underlineColor="transparent"
+        underlineStyle={{ height: 0 }}
+        contentStyle={{
           backgroundColor: backgroundColor,
           fontSize: fontSize,
           fontWeight: fontWeight,
           textAlign: textAlign,
           color: color,
           fontFamily: "Montserrat-Regular",
+          height: height,
+          borderRadius: 12,
+        }}
+        style={{
+          borderRadius: 12,
+          backgroundColor: "rgba(245, 245, 245, 0.9)",
         }}
         theme={{
+          roundness: 10,
           colors: {
             primary: "#363636",
             onSurfaceVariant: "#a3a2a2",
@@ -109,6 +120,7 @@ export default function QN_Input({
         left={startContent ? <TextInput.Icon icon={startContent} /> : null}
         right={endContent ? <TextInput.Icon icon={endContent} /> : null}
       />
+
       {isInvalid && (
         <Text
           style={{

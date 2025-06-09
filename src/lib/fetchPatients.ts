@@ -4,7 +4,7 @@ import { IMeal } from "../models/Patient/Diet/Diet.interface"
 
 export const fetchPatients = async (): Promise<IPatient[]> => {
     try {
-        const response = await fetchWithAuth(`${process.env.NEXT_PUBLIC_API_URL || 'http://192.168.1.28:3030/api/v1'}/nutritionist/patient`, {
+        const response = await fetchWithAuth(`${process.env.NEXT_PUBLIC_API_URL || 'http://172.20.10.12:3030/api/v1'}/nutritionist/patient`, {
             method: 'GET',
         })
 
@@ -26,7 +26,7 @@ interface IFetchOnePatientResponse {
 
 export const fetchOnePatient = async (id: string): Promise<any> => {
     try {
-        const response = await fetchWithAuth(`${process.env.NEXT_PUBLIC_API_URL || 'http://192.168.1.28:3030/api/v1'}/nutritionist/patient/${id}`, {
+        const response = await fetchWithAuth(`${process.env.NEXT_PUBLIC_API_URL || 'http://172.20.10.12:3030/api/v1'}/nutritionist/patient/${id}`, {
             method: 'GET',
         })
 
@@ -48,7 +48,7 @@ export const fetchOnePatient = async (id: string): Promise<any> => {
 
 export const updateOnePatient = async (id: string, data: Partial<IPatient>) => {
     try {
-        const response = await fetchWithAuth(`${process.env.NEXT_PUBLIC_API_URL || 'http://192.168.1.28:3030/api/v1'}/nutritionist/patient/${id}`, {
+        const response = await fetchWithAuth(`${process.env.NEXT_PUBLIC_API_URL || 'http://172.20.10.12:3030/api/v1'}/nutritionist/patient/${id}`, {
             method: 'PATCH',
             body: JSON.stringify(data)
         })
@@ -68,12 +68,12 @@ export const updateOnePatient = async (id: string, data: Partial<IPatient>) => {
 
 export const updatePatientMeal = async (idPatient: string, idDiet: string, idMeal: string, data: Partial<IMeal>) => {
     try {
-        const response = await fetchWithAuth(`${process.env.NEXT_PUBLIC_API_URL || 'http://192.168.1.28:3030/api/v1'}/nutritionist/patient/${idPatient}/diet/${idDiet}/meal/${idMeal}`, {
+        const response = await fetchWithAuth(`${process.env.NEXT_PUBLIC_API_URL || 'http://172.20.10.12:3030/api/v1'}/nutritionist/patient/${idPatient}/diet/${idDiet}/meal/${idMeal}`, {
             method: 'PATCH',
             body: JSON.stringify(data)
         })
 
-        console.log(await response.json())
+        // console.log(await response.json())
 
     } catch (error) {
 
@@ -82,7 +82,7 @@ export const updatePatientMeal = async (idPatient: string, idDiet: string, idMea
 
 export const createPatient = async (data: Partial<IPatient>) => {
     try {
-        const response = await fetchWithAuth(`${process.env.NEXT_PUBLIC_API_URL || 'http://192.168.1.28:3030/api/v1'}/nutritionist/patient/`, {
+        const response = await fetchWithAuth(`${process.env.NEXT_PUBLIC_API_URL || 'http://172.20.10.12:3030/api/v1'}/nutritionist/patient/`, {
             method: 'POST',
             body: JSON.stringify(data)
         })
@@ -102,7 +102,7 @@ export const createPatient = async (data: Partial<IPatient>) => {
 
 export const deletePatient = async (idPatient: string) => {
     try {
-        const response = await fetchWithAuth(`${process.env.NEXT_PUBLIC_API_URL || 'http://192.168.1.28:3030/api/v1'}/nutritionist/patient/${idPatient}`, {
+        const response = await fetchWithAuth(`${process.env.NEXT_PUBLIC_API_URL || 'http://172.20.10.12:3030/api/v1'}/nutritionist/patient/${idPatient}`, {
             method: 'DELETE',
         })
 
@@ -121,7 +121,7 @@ export const deletePatient = async (idPatient: string) => {
 
 export const fetchSelfPatient = async () => {
     try {
-        const response = await fetchWithAuth(`${process.env.NEXT_PUBLIC_API_URL || 'http://192.168.1.28:3030/api/v1'}/patient`, {
+        const response = await fetchWithAuth(`${process.env.NEXT_PUBLIC_API_URL || 'http://172.20.10.12:3030/api/v1'}/patient`, {
             method: 'GET',
         })
 
@@ -144,7 +144,7 @@ export const fetchSelfPatient = async () => {
 export const checkMeal = async (mealId: string) => {
     console.log(mealId)
     try {
-        const response = await fetchWithAuth(`${process.env.NEXT_PUBLIC_API_URL || 'http://192.168.1.28:3030/api/v1'}/patient/meal/${mealId}`, {
+        const response = await fetchWithAuth(`${process.env.NEXT_PUBLIC_API_URL || 'http://172.20.10.12:3030/api/v1'}/patient/meal/${mealId}`, {
             method: 'POST',
         })
 

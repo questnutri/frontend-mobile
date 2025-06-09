@@ -27,6 +27,7 @@ export default function QN_Checkbox({
 const style = StyleSheet.create({
   wrapper: {
     borderWidth: 1,
+    borderColor: "#55b7fe",
     width: 20,
     height: 20,
     borderRadius: 6,

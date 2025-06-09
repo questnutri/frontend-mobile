@@ -1,37 +1,33 @@
 import axiosInstance from 'axios'
+import * as SecureStore from 'expo-secure-store'
 
-const apiUrl = process.env.NEXT_PUBLIC_API_URL || `http://192.168.1.28:${process.env.NEXT_PUBLIC_LOCAL_BACKEND_PORT || 3030}/api/v1`
+const grokUrl = "https://active-mildly-swine.ngrok-free.app"
+
+const apiUrl = `${grokUrl}/api/v1`
 
 const axios = axiosInstance.create({
     baseURL: apiUrl,
     headers: {
         'Content-Type': 'application/json',
     },
-    withCredentials: true,
     timeout: 10000,
-    validateStatus: (status) => {
-        return status < 500
-    },
+    validateStatus: (status) => status < 500,
 })
 
 axios.interceptors.request.use(
-    (config) => {
-        if (typeof window !== 'undefined') {
-            const token = document.cookie
-                .split('; ')
-                .find(row => row.startsWith('token='))
-                ?.split('=')[1]
-
+    async (config) => {
+        try {
+            const token = await SecureStore.getItemAsync('token')
             if (token) {
                 config.headers['Authorization'] = `Bearer ${token}`
             }
+        } catch (error) {
+            console.log('Erro ao pegar token do SecureStore', error)
         }
 
         return config
     },
-    (error) => {
-        return Promise.reject(error)
-    }
+    (error) => Promise.reject(error)
 )
 
 export default axios

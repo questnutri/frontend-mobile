@@ -4,11 +4,12 @@ import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
+
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
-    "Inter-Black": require("../../assets/fonts/Montserrat-Regular.ttf"),
+    "Montserrat-Regular": require("../../assets/fonts/Montserrat-Regular.ttf"),
   });
 
   useEffect(() => {

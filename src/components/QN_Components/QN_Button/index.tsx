@@ -21,7 +21,7 @@ export default function QN_Button({
   height = 50,
   blocked,
   isLoading,
-  borderRadius = 8,
+  borderRadius = 15,
   fontSize = 16,
   children,
   marginTop,

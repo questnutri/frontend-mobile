@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 // import { IUser } from "@/models/User.interface";
 import { fetchWithAuth } from "./fetchWithAuth";
 
-const API_URL = 'http://192.168.1.28:3030/api/v1';
+const API_URL = 'http://172.20.10.12:3030/api/v1';
 
 interface IUser {
     role: 'nutritionist' | 'patient' | 'admin'

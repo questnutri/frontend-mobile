@@ -3,6 +3,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "strict": true,
+    "jsx": "react-native",
     "paths": {
       "@/*": ["./*"]
     }
@@ -12,6 +13,7 @@
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
-    "react-native.config.js"
+    "react-native.config.js",
+    "nativewind-env.d.ts"
   ]
 }

@@ -11,16 +11,15 @@ export default function DrawerLayout() {
   const [checkingAuth, setCheckingAuth] = useState(true);
 
   useEffect(() => {
-    const verifyToken = async () => {
-      const token = await SecureStore.getItemAsync("token");
-      if (!token) {
-        router.replace("/(auth)"); // Redireciona para login se não houver token
-      } else {
-        setCheckingAuth(false); // Libera para renderizar Drawer
-      }
-    };
-
-    verifyToken();
+    // const verifyToken = async () => {
+    //   const token = await SecureStore.getItemAsync("token");
+    //   if (!token) {
+    //     router.replace("/(auth)"); // Redireciona para login se não houver token
+    //   } else {
+    //     setCheckingAuth(false); // Libera para renderizar Drawer
+    //   }
+    // };
+    // verifyToken();
   }, []);
   return (
     <Drawer
@@ -29,12 +28,13 @@ export default function DrawerLayout() {
           <Image
             source={require("../../../assets/images/logo_vector.png")}
             style={{
-              width: 170,
-              height: 60,
-              resizeMode: "contain",
+              width: 150,
+              height: 50,
+
               marginBottom: 40,
               marginLeft: 5,
             }}
+            resizeMode="contain"
           />
         ),
         headerLeft: undefined,
@@ -44,7 +44,10 @@ export default function DrawerLayout() {
           width: "80%",
         },
         headerStyle: {
-          height: 70,
+          elevation: 0,
+          shadowOpacity: 0,
+          borderBottomWidth: 0,
+          backgroundColor: "white",
         },
         headerLeftContainerStyle: {
           height: 0,
@@ -59,73 +62,46 @@ function CustomDrawerContent({ navigation }) {
   const { getRole, doLogout } = useAuth();
 
   const handleLogout = async () => {
-    try {
-      const response = await logout(getRole() as string);
-      if (response.status === 204 || response.status === 401) {
-        doLogout();
-        router.replace("/(auth)");
-      }
-    } catch (error) {
-      console.error("Logout error:", error);
-    }
+    // try {
+    //   console.log("Logging out...");
+    //   doLogout();
+    //   const response = await logout();
+    //   if (response.status === 204 || response.status === 401) {
+    //     doLogout();
+    //     router.replace("/(auth)");
+    //   }
+    // } catch (error) {
+    //   console.error("Logout error:", error);
+    // }
+    router.replace("/(auth)");
   };
 
   return (
-    <View style={{ flex: 1, padding: 20 }}>
+    <View style={styles.container}>
       {/* Header Navbar */}
-      <View
-        style={{
-          alignItems: "center",
-          height: "20%",
-        }}
-      >
-        <View
-          style={{
-            borderWidth: 1,
-            borderColor: "#f1f1f1",
-            padding: 10,
-            borderRadius: 60,
-          }}
-        >
+      <View style={styles.headerNavbar}>
+        <View style={styles.headerNavbarImage}>
           <Image
             source={require("../../../assets/images/logo_vector.png")}
-            style={{
-              width: 50,
-              height: 50,
-              resizeMode: "contain",
-            }}
+            style={styles.headerUserImage}
+            resizeMode="contain"
           />
         </View>
-        <Text
-          style={{
-            marginTop: 10,
-            fontSize: 20,
-            fontWeight: "bold",
-            fontFamily: "Montserrat-Regular",
-          }}
-        >
-          Usuário Exemplo
-        </Text>
+        <Text style={styles.headerNavbarText}>Usuário Exemplo</Text>
       </View>
       {/* Menu Items */}
-      <View style={{ height: "60%", paddingTop: 30, paddingLeft: 10, gap: 0 }}>
+      <View style={styles.bodyNavbar}>
         <Text
-          onPress={() => router.navigate("/(drawer)/home")}
+          onPress={() => router.navigate("/(drawer)/diets")}
           style={styles.menuItem}
         >
-          Home
+          Dietas
         </Text>
         <Text
-          onPress={() => navigation.navigate("profile")}
+          onPress={() => router.navigate("/(drawer)/water")}
           style={styles.menuItem}
         >
-          Perfil
-        </Text>
-        <Text
-          onPress={() => navigation.navigate("settings")}
-          style={styles.menuItem}
-        >
-          Configurações
+          Consumo de água
         </Text>
       </View>
       {/* Footer Navbar */}
@@ -138,11 +114,8 @@ function CustomDrawerContent({ navigation }) {
       >
         <Image
           source={require("../../../assets/images/logo_vector.png")}
-          style={{
-            width: 120,
-            height: 120,
-            resizeMode: "contain",
-          }}
+          style={styles.footerImage}
+          resizeMode="contain"
         />
         <QN_Button
           onPress={() => handleLogout()}
@@ -163,5 +136,39 @@ const styles = StyleSheet.create({
     fontSize: 19,
     marginVertical: 10,
     fontFamily: "Montserrat-Regular",
+  },
+  container: {
+    flex: 1,
+    padding: 20,
+  },
+  headerNavbar: {
+    alignItems: "center",
+    height: "20%",
+  },
+  headerNavbarImage: {
+    borderWidth: 1,
+    borderColor: "#f1f1f1",
+    padding: 10,
+    borderRadius: 60,
+  },
+  headerUserImage: {
+    width: 50,
+    height: 50,
+  },
+  headerNavbarText: {
+    marginTop: 10,
+    fontSize: 20,
+    fontWeight: "bold",
+    fontFamily: "Montserrat-Regular",
+  },
+  bodyNavbar: {
+    height: "60%",
+    paddingTop: 30,
+    paddingLeft: 10,
+    gap: 0,
+  },
+  footerImage: {
+    width: 120,
+    height: 120,
   },
 });

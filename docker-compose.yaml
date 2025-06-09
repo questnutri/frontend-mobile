@@ -1,0 +1,13 @@
+services:
+  backend:
+    image: questnutri/backend:latest
+    container_name: questnutri-backend
+    ports:
+      - 3030:3030
+      - 27017:27017 #in case you want to connect with GUI database visualizer
+    # Comment lines below to disable data persistence
+    volumes:
+      - qn_mongodata:/data/db
+
+volumes:
+  qn_mongodata:
