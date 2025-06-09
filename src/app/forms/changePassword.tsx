@@ -1,5 +1,6 @@
 import QN_Button from "@/src/components/QN_Components/QN_Button";
 import QN_Input from "@/src/components/QN_Components/QN_Input";
+import { changePassword } from "@/src/lib/changePassword";
 import { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
@@ -12,6 +13,20 @@ export default function ChangePassword({
   setForm,
 }: ChangePassword_Props) {
   const [newPassword, setNewPassword] = useState<string>("");
+
+  const handleChangePassword = async () => {
+    if (!newPassword.trim()) return;
+
+    try {
+      const response = await changePassword(tokenChangePassword, newPassword);
+
+      if (response.status === 200) {
+        setForm("login");
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Digite sua nova senha</Text>
@@ -25,7 +40,9 @@ export default function ChangePassword({
         />
       </View>
       <View style={styles.button}>
-        <QN_Button width={320}>Enviar</QN_Button>
+        <QN_Button width={320} onPress={handleChangePassword}>
+          Enviar
+        </QN_Button>
       </View>
     </View>
   );

@@ -1,13 +1,8 @@
 import axios from "./axiosInstance";
 
 export const resetPassword = async (email: string) => {
-    console.log('entrei');
-
     try {
         const response = await axios.post('/auth/reset-password', { email })
-        console.log('recebi');
-
-
         return {
             status: response.status,
             data: response.data,
