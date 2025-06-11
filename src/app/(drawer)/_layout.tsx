@@ -6,6 +6,7 @@ import { logout } from "@/src/lib/logout";
 import * as SecureStore from "expo-secure-store";
 import { useAuth } from "@/src/context/AuthContext";
 import { useEffect, useState } from "react";
+import { useUser } from "@/src/hooks/useUser";
 
 export default function DrawerLayout() {
   const [checkingAuth, setCheckingAuth] = useState(true);
@@ -60,6 +61,7 @@ export default function DrawerLayout() {
 
 function CustomDrawerContent({ navigation }) {
   const { getRole, doLogout } = useAuth();
+  const { user } = useUser();
 
   const handleLogout = async () => {
     // try {
@@ -87,7 +89,9 @@ function CustomDrawerContent({ navigation }) {
             resizeMode="contain"
           />
         </View>
-        <Text style={styles.headerNavbarText}>Usuário Exemplo</Text>
+        <Text style={styles.headerNavbarText}>
+          {user?.firstName + " " + user?.lastName}
+        </Text>
       </View>
       {/* Menu Items */}
       <View style={styles.bodyNavbar}>

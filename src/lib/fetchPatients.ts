@@ -1,6 +1,8 @@
 import { IPatient } from "../models/Patient/Patient.interface"
 import { fetchWithAuth } from "./fetchWithAuth"
 import { IMeal } from "../models/Patient/Diet/Diet.interface"
+import * as SecureStore from "expo-secure-store"
+import axios from "./axiosInstance"
 
 export const fetchPatients = async (): Promise<IPatient[]> => {
     try {
@@ -121,18 +123,29 @@ export const deletePatient = async (idPatient: string) => {
 
 export const fetchSelfPatient = async () => {
     try {
-        const response = await fetchWithAuth(`${process.env.NEXT_PUBLIC_API_URL || 'http://172.20.10.12:3030/api/v1'}/patient`, {
-            method: 'GET',
-        })
+        // const token = await SecureStore.getItemAsync('token')
+        // console.log('token: ', token)
+        // const response = await fetchWithAuth(`https://active-mildly-swine.ngrok-free.app/api/v1/patients`, {
+        //     method: 'GET',
+        //     headers: {
+        //         "Authorization": `Bearer ${token}`,
+        //         "Content-Type": "application/json",
+        //     }
+        // })
 
-        if (response.status !== 200) {
+        const res = await axios.get('/patients')
+
+        console.log(res);
+
+
+        if (res.status !== 200) {
             throw new Error('Could not fetch patient data')
         }
 
 
         return {
-            status: response.status,
-            data: await response.json()
+            status: res.status,
+            data: res
         }
 
     } catch (error) {

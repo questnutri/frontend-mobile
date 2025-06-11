@@ -4,6 +4,7 @@ import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { UserProvider } from "../context/UserContext";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -23,9 +24,11 @@ export default function RootLayout() {
   }
   return (
     <AuthProvider>
-      <SafeAreaView style={{ flex: 1 }}>
-        <Slot />
-      </SafeAreaView>
+      <UserProvider>
+        <SafeAreaView style={{ flex: 1 }}>
+          <Slot />
+        </SafeAreaView>
+      </UserProvider>
     </AuthProvider>
   );
 }

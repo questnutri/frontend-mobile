@@ -2,21 +2,24 @@ import { useAuth } from "@/src/context/AuthContext";
 import { FlatList, StyleSheet, View } from "react-native";
 import QN_DietDisplay_Day from "@/src/components/QN_Components/QN_DietDisplay_Day";
 import { Dimensions } from "react-native";
+import { useUser } from "@/src/hooks/useUser";
+import { MealType } from "@/src/models/Meal.interface";
 
 export default function Diets() {
   const { getToken, isAuthenticated, doLogout } = useAuth();
+  const { user } = useUser();
   const date = new Date();
-
   const SCREEN_WIDTH = Dimensions.get("window").width;
 
-  const days = [
-    { id: "0" },
-    { id: "1" },
-    { id: "2" },
-    { id: "3" },
-    { id: "4" },
-    { id: "5" },
-    { id: "6" },
+  const days = Array.from({ length: 7 }, (_, i) => ({ id: i.toString() }));
+  const weekDays = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
   ];
 
   return (
@@ -37,7 +40,15 @@ export default function Diets() {
           offset: SCREEN_WIDTH * index,
           index,
         })}
-        renderItem={({ item }) => <QN_DietDisplay_Day day={item.id} />}
+        renderItem={({ item }) => {
+          const dayName = weekDays[parseInt(item.id)];
+          const allMeals: MealType[] = user?.diets?.[0]?.meals ?? [];
+          const mealsForDay = allMeals.filter((meal) =>
+            meal.daysOfWeek.includes(dayName)
+          );
+
+          return <QN_DietDisplay_Day day={item.id} meals={mealsForDay} />;
+        }}
         ItemSeparatorComponent={() => <View style={{ width: 0 }} />}
       />
     </View>

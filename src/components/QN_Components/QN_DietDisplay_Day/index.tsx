@@ -12,9 +12,11 @@ import QN_MealDisplay from "../QN_MealDisplay";
 import { FoodModalProvider } from "@/src/context/FoodContext";
 import FoodInfoModal from "../QN_FoodInfomation";
 import { LinearGradient } from "expo-linear-gradient";
+import { MealType } from "@/src/models/Meal.interface";
 
 interface QN_DietDisplay_DayProps {
   day: string;
+  meals: MealType[];
   onNavigateLeft?: () => void;
   onNavigateRight?: () => void;
 }
@@ -34,6 +36,7 @@ const SCREEN_WIDTH = Dimensions.get("window").width;
 
 export default function QN_DietDisplay_Day({
   day,
+  meals,
   onNavigateLeft,
   onNavigateRight,
 }: QN_DietDisplay_DayProps) {
@@ -73,6 +76,7 @@ export default function QN_DietDisplay_Day({
   const handleRightNavigation = () => {
     onNavigateRight?.();
   };
+  console.log(meals);
 
   return (
     <FoodModalProvider>
@@ -125,8 +129,11 @@ export default function QN_DietDisplay_Day({
               contentContainerStyle={styles.scrollContent}
             >
               <View style={styles.mealsContainer}>
-                <QN_MealDisplay />
-                <QN_MealDisplay />
+                {/* <QN_MealDisplay />
+                <QN_MealDisplay /> */}
+                {meals?.map((meal) => (
+                  <QN_MealDisplay />
+                ))}
               </View>
             </ScrollView>
 

@@ -6,10 +6,10 @@ export interface ILoginRequest {
 }
 
 export interface ILoginResponse {
-    token?: string
+    token: string
     status?: number
     error?: string
-    role?: string
+    role: string
 }
 
 export const login = async (data: ILoginRequest): Promise<ILoginResponse> => {
@@ -28,6 +28,8 @@ export const login = async (data: ILoginRequest): Promise<ILoginResponse> => {
         return {
             status: error.response?.status,
             error: error.response?.data?.error,
+            role: '',
+            token: ''
         }
     }
 }
